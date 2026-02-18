@@ -38,14 +38,13 @@ The system uses:
 
 app/
 components/
-lib/
-editor/
-blocks/
-sidebar/
-queries/
-mutations/
+domain/
+drizzle/
+infrastructure/
 presence/
-supabase/
+lib/
+queries/
+utils/
 
 Agents should preserve this structure.
 
