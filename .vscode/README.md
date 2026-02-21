@@ -37,6 +37,7 @@ The system uses:
 ## Folder Structure
 
 app/
+actions/
 components/
 domain/
 drizzle/
