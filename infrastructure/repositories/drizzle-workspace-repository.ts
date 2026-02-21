@@ -1,5 +1,4 @@
 import { eq } from "drizzle-orm";
-import { db } from "@/utils/drizzle";
 import { workspaces } from "@/drizzle/schema";
 import type { WorkspaceRepository } from "@/domain/repositories/workspace-repository";
 import type {
@@ -9,8 +8,17 @@ import type {
 } from "@/domain/entities/workspace";
 
 export class DrizzleWorkspaceRepository implements WorkspaceRepository {
+  private db: any;
+
+  constructor(dbInstance?: any) {
+    // Allow dependency injection for tests; fall back to the app `db` at runtime
+    // to preserve existing behavior.
+    // Import lazily to avoid ESM import issues in tests.
+    this.db = dbInstance ?? require("@/utils/drizzle").db;
+  }
+
   async findById(id: number): Promise<Workspace | null> {
-    const result = await db
+    const result = await this.db
       .select()
       .from(workspaces)
       .where(eq(workspaces.id, id))
@@ -24,7 +32,7 @@ export class DrizzleWorkspaceRepository implements WorkspaceRepository {
   }
 
   async findByOwnerId(ownerId: string): Promise<Workspace[]> {
-    const result = await db
+    const result = await this.db
       .select()
       .from(workspaces)
       .where(eq(workspaces.ownerId, ownerId));
@@ -35,7 +43,7 @@ export class DrizzleWorkspaceRepository implements WorkspaceRepository {
   }
 
   async create(input: CreateWorkspaceDTO): Promise<Workspace> {
-    const result = await db
+    const result = await this.db
       .insert(workspaces)
       .values({
         name: input.name,
@@ -47,7 +55,7 @@ export class DrizzleWorkspaceRepository implements WorkspaceRepository {
   }
 
   async update(input: UpdateWorkspaceDTO): Promise<Workspace> {
-    const result = await db
+    const result = await this.db
       .update(workspaces)
       .set({
         name: input.name,
@@ -59,7 +67,7 @@ export class DrizzleWorkspaceRepository implements WorkspaceRepository {
   }
 
   async delete(id: number): Promise<void> {
-    await db.delete(workspaces).where(eq(workspaces.id, id));
+    await this.db.delete(workspaces).where(eq(workspaces.id, id));
   }
 
   private mapToEntity(row: typeof workspaces.$inferSelect): Workspace {
