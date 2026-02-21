@@ -1,5 +1,5 @@
 'use client';
-import { getWorkspaces } from '@/queries/get-workspaces';
+import { getWorkspaces } from '@/queries/workspaces';
 import { useQuery } from '@tanstack/react-query';
 import {
   Item,

@@ -4,7 +4,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import { getWorkspaces } from '@/queries/get-workspaces';
+import { getWorkspaces } from '@/queries/workspaces';
 
 export default async function WorkspacesPage() {
   const queryClient = new QueryClient();
