@@ -12,6 +12,14 @@ import Link from 'next/link';
 import { createClient } from '@/utils/supabase/client';
 import CreateWorkspaceForm from '../forms/CreateWorkspaceForm';
 import { Button } from '@/components/ui/button';
+import {
+  Empty,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+  EmptyDescription,
+  EmptyContent,
+} from '@/components/ui/empty';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useRouter } from 'next/navigation';
 import { useWorkspaces } from '@/queries/use-workspaces';
@@ -87,17 +95,24 @@ export default function Workspaces() {
             ))}
           </ItemGroup>
         ) : (
-          <div className='flex flex-col items-center justify-center py-20 px-4'>
-            <div className='rounded-full bg-muted p-6 mb-6'>
+          <Empty className='py-20 px-4'>
+            <EmptyMedia
+              variant='icon'
+              className='rounded-full bg-muted p-6 mb-6'
+            >
               <FolderIcon className='size-12 text-muted-foreground' />
-            </div>
-            <h2 className='text-2xl font-semibold mb-2'>No workspaces yet</h2>
-            <p className='text-muted-foreground text-center max-w-md mb-6'>
-              Get started by creating your first workspace. Workspaces help you
-              organize your projects and collaborate with your team.
-            </p>
-            <CreateWorkspaceForm />
-          </div>
+            </EmptyMedia>
+            <EmptyHeader>
+              <EmptyTitle>No workspaces yet</EmptyTitle>
+              <EmptyDescription>
+                Get started by creating your first workspace. Workspaces help
+                you organize your projects and collaborate with your team.
+              </EmptyDescription>
+            </EmptyHeader>
+            <EmptyContent>
+              <CreateWorkspaceForm />
+            </EmptyContent>
+          </Empty>
         )}
       </div>
     </div>

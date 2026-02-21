@@ -11,9 +11,6 @@ export class DrizzleWorkspaceRepository implements WorkspaceRepository {
   private db: any;
 
   constructor(dbInstance?: any) {
-    // Allow dependency injection for tests; fall back to the app `db` at runtime
-    // to preserve existing behavior.
-    // Import lazily to avoid ESM import issues in tests.
     this.db = dbInstance ?? require("@/utils/drizzle").db;
   }
 
