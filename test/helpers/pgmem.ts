@@ -24,12 +24,15 @@ export async function createTestDb() {
     options: { parsers: {}, serializers: {} },
     async unsafe(query: string, params?: any[]) {
       let res: any;
-      if (typeof adapter.query === "function") {
-        res = await adapter.query(query, params || []);
+      if (typeof (adapter as any).query === "function") {
+        res = await (adapter as any).query(query, params || []);
       } else if (typeof adapter === "function") {
-        res = await adapter(query, params || []);
-      } else if (adapter.client && typeof adapter.client.query === "function") {
-        res = await adapter.client.query(query, params || []);
+        res = await (adapter as any)(query, params || []);
+      } else if (
+        (adapter as any).client &&
+        typeof (adapter as any).client.query === "function"
+      ) {
+        res = await (adapter as any).client.query(query, params || []);
       } else {
         throw new Error("pg-mem adapter has no query function");
       }
@@ -37,10 +40,6 @@ export async function createTestDb() {
       return {
         values() {
           return rows;
-        },
-        // also allow awaiting the object directly to get rows
-        then(onfulfilled: any) {
-          return Promise.resolve(rows).then(onfulfilled);
         },
       };
     },

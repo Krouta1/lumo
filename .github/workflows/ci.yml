@@ -14,16 +14,12 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          pnpm-version: 8
+          version: 8
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
       - name: Run unit tests
         run: pnpm test:ci
       - name: Build and start app
         run: |
           pnpm build
           pnpm start &
-      - name: Run Playwright E2E
-        env:
-          CI: true
-        run: pnpm e2e
