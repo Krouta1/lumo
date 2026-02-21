@@ -27,12 +27,12 @@ export default function Workspaces() {
   }
 
   return (
-    <div className='min-h-dvh bg-gradient-to-br from-background via-background to-muted/20'>
+    <div className='min-h-dvh bg-linear-to-r from-background via-background to-muted/20'>
       <div className='max-w-7xl mx-auto px-6 py-8 sm:px-8 lg:px-10'>
         {/* Header */}
         <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-12'>
           <div className='space-y-2'>
-            <h1 className='text-4xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent'>
+            <h1 className='text-4xl font-bold tracking-tight bg-linear-to-r from-foreground to-foreground/70 bg-clip-text text-transparent'>
               Your Workspaces
             </h1>
             <p className='text-muted-foreground text-lg'>

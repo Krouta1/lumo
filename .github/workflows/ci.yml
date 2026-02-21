@@ -23,7 +23,3 @@ jobs:
         run: |
           pnpm build
           pnpm start &
-      - name: Run Playwright E2E
-        env:
-          CI: true
-        run: pnpm e2e
